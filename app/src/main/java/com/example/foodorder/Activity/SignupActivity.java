@@ -38,5 +38,9 @@ ActivitySignupBinding binding;
                 }
             });
         });
+
+        binding.lognintxt.setOnClickListener(v -> {
+            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+        });
     }
 }

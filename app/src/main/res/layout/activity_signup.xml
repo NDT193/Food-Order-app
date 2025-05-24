@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            tools:srcCompat="@drawable/logo" />
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 android:text="You you a member?" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/lognintxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -147,7 +147,7 @@
                 android:text="You aren't a user?" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/Signuptxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
