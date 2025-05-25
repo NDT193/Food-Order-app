@@ -2,8 +2,8 @@ package com.example.foodorder.Domain;
 
 public class Category {
     private int id;
-    private  String InmagePath;
-    private String name;
+    private  String ImagePath;
+    private String Name;
 
     public Category() {
     }
@@ -16,19 +16,19 @@ public class Category {
         this.id = id;
     }
 
-    public String getInmagePath() {
-        return InmagePath;
+    public String getImagePath() {
+        return ImagePath;
     }
 
-    public void setInmagePath(String inmagePath) {
-        InmagePath = inmagePath;
+    public void setImagePath(String imagePath) {
+        ImagePath = imagePath;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 }

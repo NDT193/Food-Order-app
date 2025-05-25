@@ -48,7 +48,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@drawable/logout" />
+                    app:srcCompat="@drawable/logout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -64,7 +64,7 @@
                     android:layout_marginEnd="6dp"
                     android:background="@drawable/gray_background"
                     android:padding="12dp"
-                    tools:srcCompat="@drawable/settings" />
+                    app:srcCompat="@drawable/settings" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        tools:srcCompat="@drawable/search_icon" />
+                        app:srcCompat="@drawable/search_icon" />
                 </LinearLayout>
 
                 <ImageView
@@ -107,7 +107,7 @@
                     android:layout_marginTop="13dp"
                     android:background="@drawable/gray_background"
                     android:padding="12dp"
-                    tools:srcCompat="@drawable/basket" />
+                    app:srcCompat="@drawable/basket" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +140,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_weight="1"
-                        android:background="" />
+                        android:background="@null" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -165,7 +165,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_weight="1"
-                        android:background="" />
+                        android:background="@null" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,7 +190,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_weight="1"
-                        android:background="" />
+                        android:background="@null" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -227,8 +227,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_height="300dp">
+                android:minHeight="300dp">
 
                 <ProgressBar
                     android:id="@+id/progressBarbestfood"
@@ -244,6 +245,9 @@
                     android:id="@+id/bestFoodView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -261,6 +265,7 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text="Choose Category"
+                android:layout_marginTop="16dp"
                 android:textColor="@color/blue_gray"
                 android:background="@android:color/transparent"
                 android:textSize="22dp"

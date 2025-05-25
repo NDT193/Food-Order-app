@@ -2,11 +2,11 @@ package com.example.foodorder.Domain;
 
 public class Time {
     private int id;
-    private String value;
+    private String Value;
 
     @Override
     public String toString() {
-        return value;
+        return Value ;
     }
 
     public Time() {
@@ -21,10 +21,10 @@ public class Time {
     }
 
     public String getValue() {
-        return value;
+        return Value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        Value = value;
     }
 }
