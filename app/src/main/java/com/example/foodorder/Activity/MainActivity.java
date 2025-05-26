@@ -1,5 +1,6 @@
 package com.example.foodorder.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.foodorder.Domain.Price;
 import com.example.foodorder.Domain.Time;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +49,30 @@ public class MainActivity extends BaseActivity {
         initPrice();
         initBestFood();
         initCategory();
+        setVariable();
+        
+    }
+
+    private void setVariable() {
+        binding.logoutBtn.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        });
+        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = binding.searchTxt.getText().toString();
+                if(!text.isEmpty())
+                {
+                    Intent intent = new Intent(MainActivity.this, ListFoodsActivity.class);
+                    intent.putExtra("text", text);
+                    intent.putExtra("isSearch", true);
+                    startActivity(intent);
+                } else {
+                    binding.searchTxt.setError("Please enter a search term");
+                }
+            }
+        });
     }
 
     //    private void initBestFood() {
@@ -194,11 +220,11 @@ public class MainActivity extends BaseActivity {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         list.add(issue.getValue(Category.class));
                     }
-                   if(list.size()>0){
-                       binding.categoryView.setLayoutManager(new GridLayoutManager(MainActivity.this,4));
-                       RecyclerView.Adapter adapter= new CategoryAdapter(list);
-                       binding.categoryView.setAdapter(adapter);
-                   }
+                    if (list.size() > 0) {
+                        binding.categoryView.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+                        RecyclerView.Adapter adapter = new CategoryAdapter(list);
+                        binding.categoryView.setAdapter(adapter);
+                    }
                     binding.progressBarCategory.setVisibility(View.GONE);
                 }
             }
