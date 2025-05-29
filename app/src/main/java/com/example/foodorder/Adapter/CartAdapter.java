@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.foodorder.Domain.Foods;
-import com.example.foodorder.Helper.ChangeNumberItemsListener;
-import com.example.foodorder.Helper.ManagmentCart;
+import com.example.foodorder.Helper1.ChangeNumberItemsListener;
+import com.example.foodorder.Helper1.ManagmentCart;
 import com.example.foodorder.R;
 
 import java.util.ArrayList;

@@ -13,18 +13,22 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityLoginBinding;
+import com.google.firebase.database.DatabaseReference;
 
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
+    String DuplicateEmail = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
         setVariable();
     }
+
+
 
     private void setVariable() {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +39,8 @@ public class LoginActivity extends BaseActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     binding.userEdit.setError("Please enter your email");
                     binding.passEdit.setError("Please enter your password");
-                } else {
+                }else
+                {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                         if (task.isSuccessful()) {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));

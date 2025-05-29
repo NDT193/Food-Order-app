@@ -212,6 +212,7 @@
                     android:inputType="text"
                     android:text="Today's best food"
                     android:textSize="22dp"
+                    android:enabled="false"
                     android:textStyle="bold"
                     android:textColor="@color/blue_gray"
                     android:background="@android:color/transparent"/>
@@ -222,6 +223,7 @@
                     android:layout_height="wrap_content"
                     android:text="VIEW ALL"
                     android:textColor="@color/red"
+                    android:visibility="invisible"
                     android:background="@android:color/transparent"/>
             </LinearLayout>
 
@@ -269,6 +271,7 @@
                 android:textColor="@color/blue_gray"
                 android:background="@android:color/transparent"
                 android:textSize="22dp"
+                android:enabled="false"
                 android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

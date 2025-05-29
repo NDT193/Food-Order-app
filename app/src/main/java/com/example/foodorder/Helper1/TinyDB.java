@@ -19,7 +19,7 @@
  *  and unicode 2017 that are used for separating the items in a list.
  */
 
-package com.example.foodorder.Helper;
+package com.example.foodorder.Helper1;
 
 import android.content.Context;
 import android.content.SharedPreferences;

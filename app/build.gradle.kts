@@ -46,6 +46,11 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.firebase.database)
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\Admin\\Documents\\Do an\\DemoZLp\\DemoZPDK_Android\\ZPDK-Android",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -54,4 +59,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    //ZaloPay SDK
+    implementation("com.squareup.okhttp3:okhttp:4.6.0")
+    implementation("commons-codec:commons-codec:1.14")
 }
