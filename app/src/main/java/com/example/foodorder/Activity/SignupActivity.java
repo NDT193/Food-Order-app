@@ -28,13 +28,25 @@ ActivitySignupBinding binding;
                 Toast.makeText(SignupActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
             }
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(SignupActivity.this, task -> {
-                if(task.isComplete())
-                {
-                    Log.i(TAG,"onComplete");
+//                if(task.isComplete())
+//                {
+//                    Log.i(TAG,"onComplete");
+//                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+//                }else{
+//                    Log.i(TAG,"failure" +task.getException());
+//                    Toast.makeText(SignupActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+//                }
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignupActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                }else{
-                    Log.i(TAG,"failure" +task.getException());
-                    Toast.makeText(SignupActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Exception exception = task.getException();
+                    if (exception != null && exception.getClass().getSimpleName().equals("FirebaseAuthUserCollisionException")) {
+                        Toast.makeText(SignupActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i(TAG, "failure " + exception);
+                        Toast.makeText(SignupActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         });

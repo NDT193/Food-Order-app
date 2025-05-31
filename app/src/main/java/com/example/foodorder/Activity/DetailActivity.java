@@ -32,23 +32,23 @@ public class DetailActivity extends BaseActivity {
                 .load(object.getImagePath())
                 .into(binding.picDetail);
 
-        binding.priceDetailTxt.setText("$" + object.getPrice());
+        binding.priceDetailTxt.setText("VND" + object.getPrice());
         binding.titleDetailTxt.setText(object.getTitle());
         binding.descriptionTxt.setText(object.getDescription());
         binding.rateDetailTxt.setText(object.getStar() + "Rating");
         binding.ratingBar.setRating((float) object.getStar());
-        binding.totalPriceTxt.setText((num * object.getPrice()) + "$");
+        binding.totalPriceTxt.setText((num * object.getPrice()) + "VND");
 
         binding.plusBtn.setOnClickListener(v -> {
             num = num + 1;
             binding.numTxt.setText(num + "");
-            binding.totalPriceTxt.setText("$" + (num * object.getPrice()));
+            binding.totalPriceTxt.setText("VND" + (num * object.getPrice()));
         });
         binding.minusBtn.setOnClickListener(v -> {
             if (num > 1) {
                 num = num - 1;
                 binding.numTxt.setText(num + "");
-                binding.totalPriceTxt.setText("$" + (num * object.getPrice()));
+                binding.totalPriceTxt.setText("VND" + (num * object.getPrice()));
             }
         });
 

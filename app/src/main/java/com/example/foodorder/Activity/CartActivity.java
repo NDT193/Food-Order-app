@@ -60,17 +60,27 @@ public class CartActivity extends BaseActivity {
                     ZaloPaySDK.getInstance().payOrder(CartActivity.this, token, "demozpdk://app", new PayOrderListener() {
                         @Override
                         public void onPaymentSucceeded(String s, String s1, String s2) {
-                            Toast.makeText(CartActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                            intent.putExtra("result", "Payment successful");
+                            intent.putExtra("totalAmount", TxtAmount);
+                            startActivity(intent);
+                            managmentCart.clearCart();
                         }
 
                         @Override
                         public void onPaymentCanceled(String s, String s1) {
-                            Toast.makeText(CartActivity.this, "Payment Canceled", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                            intent.putExtra("result", "The payment has been cancelled.");
+                            intent.putExtra("totalAmount", TxtAmount);
+                            startActivity(intent);
                         }
 
                         @Override
                         public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
-                            Toast.makeText(CartActivity.this, "Payment Error", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                            intent.putExtra("result", "Payment error");
+                            intent.putExtra("totalAmount", TxtAmount);
+                            startActivity(intent);
                         }
                     });
                 }
@@ -103,21 +113,29 @@ public class CartActivity extends BaseActivity {
 
     private void calculateCart() {
         double percentTax = 0.01; // 1% tax
-        double delivery = 10; //10$
+        double delivery = 5000; //10$
 
         tax = Math.round(managmentCart.getTotalFee() * percentTax * 100.0) / 100.0;
 
         double total = Math.round((managmentCart.getTotalFee() + tax + delivery) * 100.0) / 100.0;
         double itemTotal = Math.round(managmentCart.getTotalFee() * 100.0) / 100.0;
 
-        binding.totalFreeTxt.setText("$" + itemTotal);
-        binding.taxTxt.setText("$" + tax);
-        binding.deliveryTxt.setText("$" + delivery);
-        binding.totalTxt.setText("$" + total);
+        binding.totalFreeTxt.setText("VND" + itemTotal);
+        binding.taxTxt.setText("VND" + tax);
+        binding.deliveryTxt.setText("VND" + delivery);
+        binding.totalTxt.setText("VND" + total);
         TxtAmount = String.valueOf((int) total);
+
     }
 
     private void setVariable() {
         binding.backCartBtn.setOnClickListener(v -> finish());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
 }
