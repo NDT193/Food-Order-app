@@ -5,18 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.os.StrictMode;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import org.json.JSONObject;
-
 import com.example.foodorder.Adapter.CartAdapter;
 import com.example.foodorder.Api.CreateOrder;
 import com.example.foodorder.Helper1.ManagmentCart;
 import com.example.foodorder.databinding.ActivityCartBinding;
-
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
 import vn.zalopay.sdk.Environment;
@@ -64,7 +59,6 @@ public class CartActivity extends BaseActivity {
                             intent.putExtra("result", "Payment successful");
                             intent.putExtra("totalAmount", TxtAmount);
                             startActivity(intent);
-                            managmentCart.clearCart();
                         }
 
                         @Override
@@ -109,6 +103,7 @@ public class CartActivity extends BaseActivity {
         binding.cartView.setLayoutManager(linearLayoutManager);
         adapter = new CartAdapter(managmentCart.getListCart(), this, () -> calculateCart());
         binding.cartView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void calculateCart() {
@@ -116,7 +111,6 @@ public class CartActivity extends BaseActivity {
         double delivery = 5000; //10$
 
         tax = Math.round(managmentCart.getTotalFee() * percentTax * 100.0) / 100.0;
-
         double total = Math.round((managmentCart.getTotalFee() + tax + delivery) * 100.0) / 100.0;
         double itemTotal = Math.round(managmentCart.getTotalFee() * 100.0) / 100.0;
 

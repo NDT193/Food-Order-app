@@ -3,15 +3,11 @@ package com.example.foodorder.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.foodorder.Adapter.PaymentAdapter;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.Helper1.ManagmentCart;
-import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityPaymentBinding;
 
 import java.util.ArrayList;
@@ -40,6 +36,7 @@ public class PaymentActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                 startActivity(intent);
+                managmentCart.clearCart();
             }
         });
     }

@@ -16,8 +16,11 @@
         android:theme="@style/Theme.FoodOrder"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.PaymentActivity"
+            android:name=".Activity.AccountActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.PaymentActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".Activity.CartActivity"
             android:exported="true"
@@ -61,11 +64,13 @@
         <activity
             android:name=".Activity.IntroActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

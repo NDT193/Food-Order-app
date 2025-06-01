@@ -2,27 +2,18 @@ package com.example.foodorder.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodorder.Adapter.BestFoodAdapter;
 import com.example.foodorder.Adapter.CategoryAdapter;
 import com.example.foodorder.Domain.Category;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.Domain.Location;
 import com.example.foodorder.Domain.Price;
-
 import com.example.foodorder.Domain.Time;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityMainBinding;
@@ -50,7 +41,10 @@ public class MainActivity extends BaseActivity {
         initBestFood();
         initCategory();
         setVariable();
-        
+
+        binding.userIcon.setOnClickListener(v -> {
+            Intent intent = new Intent();
+        });
     }
 
     private void setVariable() {
