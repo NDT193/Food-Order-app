@@ -129,7 +129,8 @@ public class CartActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        initList();
     }
 
 }
+

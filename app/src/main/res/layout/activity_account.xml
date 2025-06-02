@@ -105,21 +105,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/accountSaveBtn"
+                style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lưu thông tin"
-                android:background="@drawable/red_button_background"
                 android:layout_margin="32dp"
-                style="@android:style/Widget.Button"
+                android:background="@drawable/red_button_background"
+                android:text="Lưu thông tin"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="16dp"
-                />
+                android:textStyle="bold" />
 
         </LinearLayout>
 

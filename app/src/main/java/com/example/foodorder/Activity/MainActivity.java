@@ -3,6 +3,7 @@ package com.example.foodorder.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,19 +13,17 @@ import com.example.foodorder.Adapter.BestFoodAdapter;
 import com.example.foodorder.Adapter.CategoryAdapter;
 import com.example.foodorder.Domain.Category;
 import com.example.foodorder.Domain.Foods;
-import com.example.foodorder.Domain.Location;
 import com.example.foodorder.Domain.Price;
 import com.example.foodorder.Domain.Time;
+import com.example.foodorder.Env.Env;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
@@ -37,18 +36,55 @@ public class MainActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         initName();
-        initLocation();
         initTime();
         initPrice();
         initBestFood();
         initCategory();
         setVariable();
+        initSp();
 
         binding.userIcon.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AccountActivity.class);
             startActivity(intent);
         });
 
+    }
+
+    private void initSp() {
+        String email = mAuth.getCurrentUser().getEmail();
+        String emailKey = email.replace(".", ",");
+        DatabaseReference userRef = database.getReference("Account").child(emailKey);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ArrayList<String> locations = new ArrayList<>();
+                    for (DataSnapshot locationSnap : snapshot.child("Location").getChildren()) {
+                        String location = locationSnap.getValue(String.class);
+                        if (location != null) {
+                            locations.add(location);
+                        }
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, locations);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    binding.locaitionSp.setAdapter(adapter);
+
+                    binding.locaitionSp.setOnItemSelectedListener(new OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
+                            Env.selectedLocation = binding.locaitionSp.getSelectedItem().toString();
+                        }
+                        @Override
+                        public void onNothingSelected(android.widget.AdapterView<?> parent) {
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu cần
+            }
+        });
     }
 
     private void initName() {
@@ -151,30 +187,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void initLocation() {
-        DatabaseReference myRed = database.getReference("Location");
-        ArrayList<Location> list = new ArrayList<>();
-
-        myRed.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        list.add(issue.getValue(Location.class));
-                    }
-                    ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.locaitionSp.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     private void initTime() {
         DatabaseReference myRed = database.getReference("Time");
         ArrayList<Time> list = new ArrayList<>();
@@ -252,3 +264,6 @@ public class MainActivity extends BaseActivity {
     }
 
 }
+
+
+

@@ -80,6 +80,46 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/namePaymentTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        style="@style/textStyleBold"
+        app:layout_constraintBottom_toTopOf="@+id/locPaymentTxt"
+        app:layout_constraintEnd_toEndOf="@+id/locPaymentTxt" />
+
+    <TextView
+        android:id="@+id/locPaymentTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        style="@style/textStyleBold"
+        app:layout_constraintBottom_toTopOf="@+id/totalPaymentTxt"
+        app:layout_constraintEnd_toEndOf="@+id/totalPaymentTxt" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Người Mua"
+        style="@style/textStyleBold"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Địa Chỉ"
+        style="@style/textStyleBold"
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="@+id/textView19" />
+
+    <TextView
         android:id="@+id/totalPaymentTxt"
         style="@style/textStyleBold"
         android:layout_width="wrap_content"
