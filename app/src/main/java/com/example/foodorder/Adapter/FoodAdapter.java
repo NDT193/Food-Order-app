@@ -1,5 +1,7 @@
 package com.example.foodorder.Adapter;
 
+import static android.view.View.GONE;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,52 +15,49 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.foodorder.AdminAct.FoodActivity;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.R;
 
 import java.util.ArrayList;
 
-public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
-    private ArrayList<Foods> item;
+public class FoodAdapter  extends RecyclerView.Adapter<FoodAdapter.Viewholder> {
+    private ArrayList<Foods> list = new ArrayList<>();
     Context context;
 
-    public PaymentAdapter(ArrayList<Foods> item) {
-        this.item = item;
+    public FoodAdapter(ArrayList<Foods> list) {
+        this.list = list;
     }
 
     @NonNull
     @Override
-    public PaymentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View inflate = LayoutInflater.from(context).inflate(R.layout.viewholder_payment, parent, false);
-        return new ViewHolder(inflate);
+        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_payment,parent,false);
+        return new Viewholder(inflater);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PaymentAdapter.ViewHolder holder, int position) {
-
-        holder.titleTxt.setText(item.get(position).getTitle());
-        holder.eachItemTxt.setText("VND"+item.get(position).getNumberInCart()*item.get(position).getPrice());
-        holder.totalPayTxt.setText(item.get(position).getNumberInCart()+" * VND"+(
-                item.get(position).getPrice()));
-
+    public void onBindViewHolder(@NonNull FoodAdapter.Viewholder holder, int position) {
+        holder.titleTxt.setText(list.get(position).getTitle());
+        holder.eachItemTxt.setText(list.get(position).getPrice()+"VND");
+        holder.totalPayTxt.setVisibility(GONE);
         Glide.with(context)
-                .load(item.get(position).getImagePath())
+                .load(list.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
     }
 
     @Override
     public int getItemCount() {
-        return item.size();
+        return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class Viewholder extends RecyclerView.ViewHolder {
         TextView titleTxt, totalPayTxt, eachItemTxt;
         ImageView pic;
-        public ViewHolder(@NonNull View itemView) {
+        public Viewholder(@NonNull View itemView) {
             super(itemView);
-
             titleTxt = itemView.findViewById(R.id.tittleholderPaymentTxt);
             totalPayTxt = itemView.findViewById(R.id.feeEachItemholderPaymentTxt);
             eachItemTxt = itemView.findViewById(R.id.totalEachItemholderPaymentTxt);

@@ -15,49 +15,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatarImg"
-            android:layout_width="123dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/user"
+            app:civ_border_color="#E7D0D0FF"
+            app:civ_border_width="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tittleholderPaymentTxt"
+            android:id="@+id/nameVH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="title"
+            android:text="name"
             android:textColor="@color/blue_gray"
-            android:textSize="16sp"
+            android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/avatarImg"
             app:layout_constraintTop_toTopOf="@+id/avatarImg" />
 
         <TextView
-            android:id="@+id/totalEachItemholderPaymentTxt"
+            android:id="@+id/emailVhTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="$0"
+            android:text="Email"
             android:textColor="@color/blue_gray"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/tittleholderPaymentTxt"
-            app:layout_constraintTop_toBottomOf="@+id/tittleholderPaymentTxt" />
+            app:layout_constraintStart_toStartOf="@+id/nameVH"
+            app:layout_constraintTop_toBottomOf="@+id/nameVH" />
 
         <TextView
-            android:id="@+id/feeEachItemholderPaymentTxt"
+            android:id="@+id/numberVhTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="VND 0"
-            android:textColor="@color/red"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarImg"
-            app:layout_constraintStart_toEndOf="@+id/avatarImg"
-            app:layout_constraintTop_toBottomOf="@+id/totalEachItemholderPaymentTxt" />
+            android:layout_marginTop="16dp"
+            android:text="Number"
+            android:textColor="@color/blue_gray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/emailVhTxt"
+            app:layout_constraintTop_toBottomOf="@+id/emailVhTxt" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

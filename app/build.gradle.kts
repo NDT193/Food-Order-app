@@ -64,4 +64,6 @@ dependencies {
     implementation("commons-codec:commons-codec:1.14")
     //CircleImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    //MPAndroidChart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

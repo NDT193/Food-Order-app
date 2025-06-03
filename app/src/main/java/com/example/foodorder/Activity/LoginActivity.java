@@ -6,17 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import com.example.foodorder.AdminAct.AdminMainActivity;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -98,11 +90,27 @@ public class LoginActivity extends BaseActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     binding.userEdit.setError("Please enter your email");
                     binding.passEdit.setError("Please enter your password");
-                }else{
+                } else {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            String useremail = mAuth.getCurrentUser().getEmail();
+                            String emailKey = useremail.replace(".", ",");
+
+                            DatabaseReference userRef = database.getReference("Account").child(emailKey);
+                            userRef.child("IsAdmin").get().addOnCompleteListener(isAdminTask -> {
+                                if (isAdminTask.isSuccessful() && isAdminTask.getResult() != null) {
+                                    Boolean isAdmin = isAdminTask.getResult().getValue(Boolean.class);
+                                    if (Boolean.TRUE.equals(isAdmin)) {
+                                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                        finish();
+                                    } else {
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        finish();
+                                    }
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Authentication For Admin failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
@@ -119,3 +127,4 @@ public class LoginActivity extends BaseActivity {
         });
     }
 }
+
