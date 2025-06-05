@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/backFditemBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
+
+    <EditText
+        android:id="@+id/foodItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="Tên Món Ăn"
+        android:inputType="text"
+        android:textColorHint="@color/blue_gray"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backFditemBtn" />
+
+    <EditText
+        android:id="@+id/foodItemDes"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="Mô Tả Món Ăn"
+        android:inputType="text"
+        android:textColorHint="@color/blue_gray"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/foodItemTitle"
+        app:layout_constraintStart_toStartOf="@+id/foodItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/foodItemTitle" />
+
+    <EditText
+        android:id="@+id/foodItemPrice"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="Nhập giá tiền"
+        android:inputType="text"
+        android:textColorHint="@color/blue_gray"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/foodItemDes"
+        app:layout_constraintStart_toStartOf="@+id/foodItemDes"
+        app:layout_constraintTop_toBottomOf="@+id/foodItemDes" />
+
+    <Spinner
+        android:id="@+id/fooditemCate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintEnd_toEndOf="@+id/foodItemPrice"
+        app:layout_constraintStart_toStartOf="@+id/foodItemPrice"
+        app:layout_constraintTop_toBottomOf="@+id/foodItemPrice" />
+
+    <Spinner
+        android:id="@+id/fooditemTime"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintEnd_toEndOf="@+id/fooditemCate"
+        app:layout_constraintStart_toStartOf="@+id/fooditemCate"
+        app:layout_constraintTop_toBottomOf="@+id/fooditemCate" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:text="Món ăn ngon nhất hôm nay"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/fooditemTime"
+        app:layout_constraintStart_toStartOf="@+id/fooditemTime"
+        app:layout_constraintTop_toBottomOf="@+id/fooditemTime" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fooditemBtn"
+        style="@android:style/Widget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/red_button_background"
+        android:text="Lưu Món Ăn"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

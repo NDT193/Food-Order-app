@@ -16,6 +16,15 @@
         android:theme="@style/Theme.FoodOrder"
         tools:targetApi="31">
         <activity
+            android:name=".AdminAct.UserMnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminAct.FoodAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminAct.FoodItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminAct.FoodActivity"
             android:exported="false" />
         <activity
@@ -23,6 +32,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -64,13 +74,12 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true">
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
         <activity
             android:name=".Activity.BaseActivity"

@@ -16,113 +16,122 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/user"
-        app:civ_border_color="#E7D0D0FF"
-        app:civ_border_width="1dp" />
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/accountName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:hint="Họ Tên"
-            android:textColorHint="@color/blue_gray"
-            android:textSize="16dp"
-            android:ems="10"
-            android:inputType="text"
-            android:background="@drawable/edittext_background"
-            />
-
-        <EditText
-            android:id="@+id/accountEmail"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:hint="Email"
-            android:enabled="false"
-            android:textColorHint="@color/blue_gray"
-            android:textSize="16dp"
-            android:ems="10"
-            android:inputType="text"
-            android:background="@drawable/edittext_background"
-            />
-
-        <EditText
-            android:id="@+id/accountNumber"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
-            android:hint="Số điện thoại"
-            android:textColorHint="@color/blue_gray"
-            android:textSize="16dp"
-            android:ems="10"
-            android:inputType="text"
-            android:background="@drawable/edittext_background"
-            />
-
-        <EditText
-            android:id="@+id/accountLoc"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="Địa chỉ"
-            android:inputType="text"
-            android:textColorHint="@color/blue_gray"
-            android:textSize="16dp" />
-
-
-        <Spinner
-            android:id="@+id/accountSp"
-            android:layout_width="323dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/edittext_background" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/accountSaveBtn"
-                style="@android:style/Widget.Button"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/user"
+                app:civ_border_color="#E7D0D0FF"
+                app:civ_border_width="1dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="32dp"
-                android:background="@drawable/red_button_background"
-                android:text="Lưu thông tin"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
 
+                <EditText
+                    android:id="@+id/accountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:hint="Họ Tên"
+                    android:inputType="text"
+                    android:textColorHint="@color/blue_gray"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/accountEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:textColorHint="@color/blue_gray"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/accountNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:hint="Số điện thoại"
+                    android:inputType="text"
+                    android:textColorHint="@color/blue_gray"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/accountLoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:hint="Địa chỉ"
+                    android:inputType="text"
+                    android:textColorHint="@color/blue_gray"
+                    android:textSize="16dp" />
+
+
+                <Spinner
+                    android:id="@+id/accountSp"
+                    android:layout_width="323dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/edittext_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/accountSaveBtn"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="32dp"
+                        android:background="@drawable/red_button_background"
+                        android:text="Lưu thông tin"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
 </LinearLayout>
 

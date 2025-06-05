@@ -16,8 +16,8 @@ public class AdminMainActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         binding.userManagerImg.setOnClickListener(v -> {
-//            Intent intent = new Intent(AdminMainActivity.this, UserManagerActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(AdminMainActivity.this, UserMnActivity.class);
+            startActivity(intent);
         });
 
         binding.foodManagerImg.setOnClickListener(v -> {
