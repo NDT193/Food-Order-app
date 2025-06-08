@@ -87,6 +87,8 @@ public class FoodAddActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void initSp() {
         ArrayList<String> categoryNames = new ArrayList<>();
         DatabaseReference categoryRef = database.getReference("Category");

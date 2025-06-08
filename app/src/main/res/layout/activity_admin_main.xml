@@ -125,7 +125,7 @@
             android:layout_gravity="center"
             android:background="@drawable/cat_4_background"
             android:padding="12dp"
-            android:src="@drawable/btn_1" />
+            android:src="@drawable/cate" />
 
         <TextView
             android:id="@+id/orderManagerTxt1"
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Quản lý đơn hàng"
+            android:text="Quản lý danh mục"
             android:textAlignment="center"
             android:textColor="@color/blue_gray"
             android:textSize="18sp" />

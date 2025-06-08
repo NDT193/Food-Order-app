@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.example.foodorder.Activity.BaseActivity;
 import com.example.foodorder.databinding.ActivityFoodItemBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class FoodItemActivity extends BaseActivity {
@@ -25,8 +22,6 @@ public class FoodItemActivity extends BaseActivity {
     private FirebaseDatabase database;
     private ArrayAdapter<String> adapterCate;
     private ArrayAdapter<String> adapterTime;
-    private String imagePath = "";
-    private Double star = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +34,6 @@ public class FoodItemActivity extends BaseActivity {
         Log.i("Tag", foodId);
         textFill = getIntent().getBooleanExtra("text_fill", false);
 
-        getCurFood();
         initSp();
         foodEdit();
 
@@ -67,45 +61,26 @@ public class FoodItemActivity extends BaseActivity {
             java.util.HashMap<String, Object> foodData = new java.util.HashMap<>();
             foodData.put("Title", title);
             foodData.put("Price", price);
-            foodData.put("Id", Integer.parseInt(foodId));
             foodData.put("Description", description);
             foodData.put("BestFood", bestFood);
             foodData.put("CategoryId", categoryId);
             foodData.put("TimeId", timeId);
-            foodData.put("ImagePath", imagePath);
-            foodData.put("Star", star);
-            //??
-//            foodData.put("LocationId", 1);
-//            foodData.put("PriceId", 1);
-//            foodData.put("TimeValue", 20);
+
 
             // Update Firebase
             DatabaseReference foodRef = database.getReference("Foods").child(foodId);
-            foodRef.setValue(foodData);
-            Toast.makeText(FoodItemActivity.this, "Thông tin món ăn đã được chỉnh sửa", Toast.LENGTH_SHORT).show();
-        });
-    }
+            foodRef.updateChildren(foodData).addOnCompleteListener(task -> {;
+                if (task.isSuccessful()) {
+                    Toast.makeText(FoodItemActivity.this, "Thông tin món ăn đã được chỉnh sửa", Toast.LENGTH_SHORT).show();
 
-    private void getCurFood() {
-        if (foodId == null) return;
-        DatabaseReference foodRef = database.getReference("Foods").child(foodId);
-        foodRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    imagePath = snapshot.child("ImagePath").getValue(String.class);
-                    star = snapshot.child("Star").getValue(Double.class);
-                    Log.d("getCurFood", "ImagePath: " + imagePath + ", Star: " + star);
-                    // Use imagePath and star as needed
+                } else {
+                    Toast.makeText(FoodItemActivity.this, "Thay đổi thất bại", Toast.LENGTH_SHORT).show();
+
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error if needed
-            }
+            });
         });
     }
+
 
     private void IsTextFill() {
         if (foodId == null || !textFill) return;

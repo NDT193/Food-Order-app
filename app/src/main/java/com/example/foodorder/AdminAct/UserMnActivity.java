@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class UserMnActivity extends BaseActivity {
     ActivityUserMnBinding binding;
     private FirebaseDatabase database;
-
     private ArrayList<Account> accountsList = new ArrayList<>();
     private UserMnAdapter UserMnAdapter;
 
