@@ -34,6 +34,15 @@
                     />
 
                 <ImageView
+                    android:id="@+id/commnetBtn"
+                    android:layout_width="53dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/comment"
+                    app:layout_constraintEnd_toStartOf="@+id/favBtn"
+                    app:layout_constraintTop_toTopOf="@+id/favBtn" />
+
+                <ImageView
                     android:id="@+id/favBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,7 +87,7 @@
                     android:id="@+id/priceDetailTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$"
+                    android:text="VND"
                     android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold" />

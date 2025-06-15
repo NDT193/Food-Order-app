@@ -1,7 +1,5 @@
 package com.example.foodorder.Adapter;
 
-import static android.view.View.GONE;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,41 +7,37 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.foodorder.AdminAct.FoodActivity;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.R;
-
 import java.util.ArrayList;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.Viewholder> {
-    private ArrayList<Foods> list = new ArrayList<>();
+public class FavListAdapter extends RecyclerView.Adapter<FavListAdapter.Viewholder> {
+    ArrayList<Foods> list;
     Context context;
     private int selectedPosition = -1;
 
-    public FoodAdapter(ArrayList<Foods> list) {
+    public FavListAdapter(ArrayList<Foods> list) {
         this.list = list;
     }
 
     @NonNull
     @Override
-    public FoodAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavListAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View inflater = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_foodmanager, parent, false);
-        return new Viewholder(inflater);
+        View view = LayoutInflater.from(context).inflate(R.layout.viewholder_fav_list, parent, false);
+        return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodAdapter.Viewholder holder, int position) {
-        holder.titleTxt.setText(list.get(position).getTitle());
-        holder.eachItemTxt.setText(list.get(position).getPrice() + "VND");
-        holder.checkbox.setChecked(position == selectedPosition);
+    public void onBindViewHolder(@NonNull FavListAdapter.Viewholder holder, int position) {
+        holder.title.setText(list.get(position).getTitle());
+        holder.price.setText("VND " + list.get(position).getPrice());
+        holder.star.setText("" + list.get(position).getStar());
 
         Glide.with(context)
                 .load(list.get(position).getImagePath())
@@ -51,13 +45,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.Viewholder> {
                 .into(holder.pic);
 
         holder.checkbox.setOnClickListener(v -> {
-            int oldPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(oldPosition);
-            notifyItemChanged(selectedPosition);
-        });
-
-        holder.itemView.setOnClickListener(v -> {
             int oldPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(oldPosition);
@@ -81,18 +68,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.Viewholder> {
         return null;
     }
 
+
     public class Viewholder extends RecyclerView.ViewHolder {
-        TextView titleTxt,  eachItemTxt;
+        TextView title, price, star;
         ImageView pic;
         CheckBox checkbox;
-
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            titleTxt = itemView.findViewById(R.id.titleFmTxt);
-            eachItemTxt = itemView.findViewById(R.id.priceFmTxt);
-            checkbox = itemView.findViewById(R.id.checkBoxFm);
-            pic = itemView.findViewById(R.id.avatarImg);
+            title = itemView.findViewById(R.id.titleFavTxt);
+            price = itemView.findViewById(R.id.priceFavTxt);
+            pic = itemView.findViewById(R.id.avatarFav);
+            checkbox = itemView.findViewById(R.id.checkBoxFav);
+            star = itemView.findViewById(R.id.starFavTxt);
         }
     }
 }
-

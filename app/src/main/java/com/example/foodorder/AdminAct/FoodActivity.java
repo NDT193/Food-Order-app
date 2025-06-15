@@ -1,5 +1,6 @@
 package com.example.foodorder.AdminAct;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,27 +49,7 @@ public class FoodActivity extends BaseActivity {
 
     private void setbuttonVariable() {
         binding.foodDeleteBtn.setOnClickListener(v -> {
-            if (foodAdapter != null) {
-                Foods selectedFood = foodAdapter.getSelectedFood();
-                if (selectedFood != null) {
-                    // Lấy Id của món ăn (dạng String hoặc int, nếu int thì chuyển sang String)
-                    String foodId = String.valueOf(selectedFood.getId());
-                    DatabaseReference foodRef = database.getReference("Foods").child(foodId);
-                    foodRef.removeValue().addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            allFoodsList.remove(selectedFood);
-                            foodAdapter = new FoodAdapter(allFoodsList);
-                            binding.foodActvc.setAdapter(foodAdapter);
-
-                            Toast.makeText(FoodActivity.this, "Xoá món ăn thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(FoodActivity.this, "Xoá món ăn thất bại", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(FoodActivity.this, "Chưa chọn món ăn", Toast.LENGTH_SHORT).show();
-                }
-            }
+            dialog();
         });
 
         binding.foodEditBtn.setOnClickListener(v -> getfoodname(FoodItemActivity.class, true));
@@ -91,7 +72,9 @@ public class FoodActivity extends BaseActivity {
             foodAdapter = new FoodAdapter(filteredList);
             binding.foodActvc.setAdapter(foodAdapter);
         });
+
         binding.foodBackBtn.setOnClickListener(v -> finish());
+
         binding.refreshFoodList.setOnClickListener(v -> {
             binding.foodActvc.setLayoutManager(new LinearLayoutManager(FoodActivity.this, LinearLayoutManager.VERTICAL, false));
             foodAdapter = new FoodAdapter(allFoodsList);
@@ -125,6 +108,40 @@ public class FoodActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void dialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setMessage("Bạn có chắc muốn xoá món ăn này không?")
+                .setPositiveButton("Có", (dialog, which) -> {
+                    if (foodAdapter != null) {
+                        Foods selectedFood = foodAdapter.getSelectedFood();
+                        if (selectedFood != null) {
+                            // Lấy Id của món ăn (dạng String hoặc int, nếu int thì chuyển sang String)
+                            String foodId = String.valueOf(selectedFood.getId());
+                            DatabaseReference foodRef = database.getReference("Foods").child(foodId);
+                            foodRef.removeValue().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+
+                                    allFoodsList.remove(selectedFood);
+                                    foodAdapter = new FoodAdapter(allFoodsList);
+                                    binding.foodActvc.setAdapter(foodAdapter);
+
+                                    Toast.makeText(FoodActivity.this, "Xoá món ăn thành công", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(FoodActivity.this, "Xoá món ăn thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(FoodActivity.this, "Chưa chọn món ăn", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Không", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
 
     private void getfoodname(Class<?> GoalClass, Boolean fill) {

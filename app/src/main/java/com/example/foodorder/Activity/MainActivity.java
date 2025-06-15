@@ -125,35 +125,11 @@ public class MainActivity extends BaseActivity {
 
         binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
 
+        binding.favListBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FavListActivity.class);
+            startActivity(intent);
+        });
     }
-
-    //    private void initBestFood() {
-//        DatabaseReference myRef = database.getReference("Foods");
-//        binding.progressBarbestfood.setVisibility(View.VISIBLE);
-//        ArrayList<Foods> list = new ArrayList<>();
-//        Query query = myRef.orderByChild("BestFood").equalTo(true);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    for (DataSnapshot issue : snapshot.getChildren()) {
-//                        list.add(issue.getValue(Foods.class));
-//                    }
-//                    if (list.size() > 0) {
-//                        binding.bestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-//                        RecyclerView.Adapter adapter = new BestFoodAdapter(list);
-//                        binding.bestFoodView.setAdapter(adapter);
-//                    }
-//                }
-//                binding.progressBarbestfood.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
     private void initBestFood() {
         DatabaseReference myRef = database.getReference("Foods");
         binding.progressBarbestfood.setVisibility(View.VISIBLE);
@@ -172,8 +148,7 @@ public class MainActivity extends BaseActivity {
                     }
                     if (list.size() > 0) {
                         binding.bestFoodView.setLayoutManager(
-                                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false)
-                        );
+                                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         RecyclerView.Adapter adapter = new BestFoodAdapter(list);
                         binding.bestFoodView.setAdapter(adapter);
                     }
@@ -187,7 +162,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
     private void initTime() {
         DatabaseReference myRed = database.getReference("Time");
         ArrayList<Time> list = new ArrayList<>();

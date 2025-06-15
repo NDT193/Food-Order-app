@@ -69,6 +69,8 @@ public class UserMnActivity extends BaseActivity {
             }
         }
     }
+
+
         private void initSp () {
             if (database == null || binding == null) return;
             try {

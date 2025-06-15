@@ -1,12 +1,19 @@
 package com.example.foodorder.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.Helper1.ManagmentCart;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityDetailBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class DetailActivity extends BaseActivity {
     ActivityDetailBinding binding;
@@ -20,9 +27,46 @@ public class DetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        database = FirebaseDatabase.getInstance();
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));
         getIntentExtra();
         setVariable();
+        addToFavList();
+    }
+
+   private void addToFavList() {
+        binding.favBtn.setOnClickListener(v -> {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String foodId = String.valueOf(object.getId());
+            DatabaseReference ref = database.getReference("Favorite").child(uid).child(foodId);
+
+            ref.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Toast.makeText(DetailActivity.this, "Food already in favorites", Toast.LENGTH_SHORT).show();
+                    } else {
+                        java.util.HashMap<String, Object> foodMap = new java.util.HashMap<>();
+                        foodMap.put("Id", object.getId());
+                        foodMap.put("ImagePath", object.getImagePath());
+                        foodMap.put("Price", object.getPrice());
+                        foodMap.put("Star", object.getStar());
+                        foodMap.put("Title", object.getTitle());
+
+                        ref.setValue(foodMap)
+                            .addOnSuccessListener(aVoid ->
+                                Toast.makeText(DetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e ->
+                                Toast.makeText(DetailActivity.this, "Add to favorites failed", Toast.LENGTH_SHORT).show());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull com.google.firebase.database.DatabaseError error) {
+                    Toast.makeText(DetailActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 
     private void setVariable() {
@@ -55,6 +99,10 @@ public class DetailActivity extends BaseActivity {
         binding.addBtn.setOnClickListener(v -> {
             object.setNumberInCart(num);
             managmentCart.insertFood(object);
+        });
+
+        binding.commnetBtn.setOnClickListener(v -> {
+            Log.i("PIC", object.getImagePath());
         });
     }
 
