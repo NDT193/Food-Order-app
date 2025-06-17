@@ -2,6 +2,7 @@ package com.example.foodorder.AdminAct;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.foodorder.Activity.BaseActivity;
 import com.example.foodorder.databinding.ActivityAdminMainBinding;
@@ -15,6 +16,10 @@ public class AdminMainActivity extends BaseActivity {
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setVariable();
+    }
+
+    private void setVariable() {
         binding.userManagerImg.setOnClickListener(v -> {
             Intent intent = new Intent(AdminMainActivity.this, UserMnActivity.class);
             startActivity(intent);
@@ -28,8 +33,10 @@ public class AdminMainActivity extends BaseActivity {
         binding.orderManagerImg.setOnClickListener(v -> {
 
         });
-
-
+        binding.supplierManagerImg.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminMainActivity.this, SupplierActivity.class);
+            startActivity(intent);
+        });
     }
 }
 

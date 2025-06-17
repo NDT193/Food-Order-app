@@ -119,13 +119,13 @@
         app:layout_constraintTop_toTopOf="@+id/linearLayout3">
 
         <ImageView
-            android:id="@+id/orderManagerImg1"
+            android:id="@+id/supplierManagerImg"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
             android:background="@drawable/cat_4_background"
             android:padding="12dp"
-            android:src="@drawable/cate" />
+            android:src="@drawable/supplier" />
 
         <TextView
             android:id="@+id/orderManagerTxt1"
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Quản lý danh mục"
+            android:text="Quản lý nhà cung cấp"
             android:textAlignment="center"
             android:textColor="@color/blue_gray"
             android:textSize="18sp" />

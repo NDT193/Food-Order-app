@@ -56,13 +56,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.Viewholder> {
             notifyItemChanged(oldPosition);
             notifyItemChanged(selectedPosition);
         });
-
-        holder.itemView.setOnClickListener(v -> {
-            int oldPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(oldPosition);
-            notifyItemChanged(selectedPosition);
-        });
+//        holder.itemView.setOnClickListener(v -> {
+//            int oldPosition = selectedPosition;
+//            selectedPosition = holder.getAdapterPosition();
+//            notifyItemChanged(oldPosition);
+//            notifyItemChanged(selectedPosition);
+//        });
     }
 
     @Override

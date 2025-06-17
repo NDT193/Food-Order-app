@@ -121,7 +121,6 @@ public class FavListActivity extends BaseActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

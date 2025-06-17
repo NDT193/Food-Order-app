@@ -42,14 +42,35 @@ public class UserMnActivity extends BaseActivity {
         database = FirebaseDatabase.getInstance();
 
         initSp();
+        setVariable();
+    }
+
+    private void setVariable() {
         binding.userMnBack.setOnClickListener(v -> finish());
-        binding.userMnDeleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletedUser();
+
+        binding.userMnDeleteBtn.setOnClickListener(v -> DeletedUser());
+
+        binding.userSearchBtn.setOnClickListener(v -> {
+            String text = binding.userSearchTxt.getText().toString().trim();
+            ArrayList<Account> filteredList = new ArrayList<>();
+            for (Account account : accountsList) {
+                if (account != null && account.getName() != null
+                        && account.getName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(account);
+                }
             }
+            binding.userMnRv.setLayoutManager(new LinearLayoutManager(UserMnActivity.this, LinearLayoutManager.VERTICAL, false));
+            UserMnAdapter = new UserMnAdapter(filteredList);
+            binding.userMnRv.setAdapter(UserMnAdapter);
+        });
+
+        binding.refreshUserList.setOnClickListener(v -> {
+            binding.userMnRv.setLayoutManager(new LinearLayoutManager(UserMnActivity.this, LinearLayoutManager.VERTICAL, false));
+            UserMnAdapter = new UserMnAdapter(accountsList);
+            binding.userMnRv.setAdapter(UserMnAdapter);
         });
     }
+
     public void DeletedUser() {
         if (UserMnAdapter != null) {
             Account selectedAccount = UserMnAdapter.getSelectedAccount();
@@ -70,61 +91,54 @@ public class UserMnActivity extends BaseActivity {
         }
     }
 
+    private void initSp() {
+        if (database == null || binding == null) return;
+        try {
+            DatabaseReference usersRef = database.getReference("Account");
+            if (usersRef == null) return;
 
-        private void initSp () {
-            if (database == null || binding == null) return;
-            try {
-                DatabaseReference usersRef = database.getReference("Account");
-                if (usersRef == null) return;
+            usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (isDestroyed() || isFinishing() || binding == null) return;
 
-                usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (isDestroyed() || isFinishing() || binding == null) return;
+                    accountsList.clear();
+                    for (DataSnapshot userSnap : snapshot.getChildren()) {
+                        try {
+                            // Đọc từng field riêng lẻ
+                            String email = userSnap.child("Email").getValue(String.class);
+                            String name = userSnap.child("Name").getValue(String.class);
+                            String uid = userSnap.child("Uid").getValue(String.class);
+                            String number = userSnap.child("Number").getValue(String.class);
+                            Boolean isAdmin = userSnap.child("IsAdmin").getValue(Boolean.class);
 
-                        accountsList.clear();
-                        for (DataSnapshot userSnap : snapshot.getChildren()) {
-                            try {
-                                // Đọc từng field riêng lẻ
-                                String email = userSnap.child("Email").getValue(String.class);
-                                String name = userSnap.child("Name").getValue(String.class);
-                                String uid = userSnap.child("Uid").getValue(String.class);
-                                String number = userSnap.child("Number").getValue(String.class);
-                                Boolean isAdmin = userSnap.child("IsAdmin").getValue(Boolean.class);
+                            Account account = new Account();
+                            account.setEmail(email);
+                            account.setName(name);
+                            account.setUid(uid);
+                            account.setNumber(number);
+                            account.setAdmin(isAdmin != null && isAdmin);
 
-                                Account account = new Account();
-                                account.setEmail(email);
-                                account.setName(name);
-                                account.setUid(uid);
-                                account.setNumber(number);
-                                account.setAdmin(isAdmin != null && isAdmin);
+                            accountsList.add(account);
 
-                                accountsList.add(account);
-
-                                if (binding.userMnRv != null) {
-                                    binding.userMnRv.setLayoutManager(new LinearLayoutManager(UserMnActivity.this));
-                                    UserMnAdapter = new UserMnAdapter(accountsList);
-                                    binding.userMnRv.setAdapter(UserMnAdapter);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            if (binding.userMnRv != null) {
+                                binding.userMnRv.setLayoutManager(new LinearLayoutManager(UserMnActivity.this));
+                                UserMnAdapter = new UserMnAdapter(accountsList);
+                                binding.userMnRv.setAdapter(UserMnAdapter);
                             }
-
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
                     }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
-
-
-
-
+}
