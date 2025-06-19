@@ -151,7 +151,7 @@ public class FoodActivity extends BaseActivity {
                 String foodId = String.valueOf(selectedFood.getId());
                 Intent intent = new Intent(FoodActivity.this, GoalClass);
                 intent.putExtra("food_id", foodId);
-                intent.putExtra("text_fill", fill); // Sửa key cho đồng nhất
+                intent.putExtra("text_fill", fill);
                 Log.i("UID", foodId);
                 startActivity(intent);
             }

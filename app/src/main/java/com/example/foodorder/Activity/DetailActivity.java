@@ -1,5 +1,6 @@
 package com.example.foodorder.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class DetailActivity extends BaseActivity {
     ActivityDetailBinding binding;
     private Foods object;
-
+    private String foodId;
     private ManagmentCart managmentCart;
     private int num = 1;
 
@@ -27,17 +28,20 @@ public class DetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         database = FirebaseDatabase.getInstance();
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+
         getIntentExtra();
-        setVariable();
         addToFavList();
+        setVariable();
+
     }
 
-   private void addToFavList() {
+    private void addToFavList() {
+        foodId = String.valueOf(object.getId());
         binding.favBtn.setOnClickListener(v -> {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            String foodId = String.valueOf(object.getId());
             DatabaseReference ref = database.getReference("Favorite").child(uid).child(foodId);
 
             ref.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
@@ -54,10 +58,10 @@ public class DetailActivity extends BaseActivity {
                         foodMap.put("Title", object.getTitle());
 
                         ref.setValue(foodMap)
-                            .addOnSuccessListener(aVoid ->
-                                Toast.makeText(DetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e ->
-                                Toast.makeText(DetailActivity.this, "Add to favorites failed", Toast.LENGTH_SHORT).show());
+                                .addOnSuccessListener(aVoid ->
+                                        Toast.makeText(DetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(DetailActivity.this, "Add to favorites failed", Toast.LENGTH_SHORT).show());
                     }
                 }
 
@@ -102,8 +106,12 @@ public class DetailActivity extends BaseActivity {
         });
 
         binding.commnetBtn.setOnClickListener(v -> {
-            Log.i("PIC", object.getImagePath());
+            Intent intent = new Intent(DetailActivity.this, CommentActivity.class);
+            intent.putExtra("FoodId", foodId);
+            startActivity(intent);
         });
+
+
     }
 
     private void getIntentExtra() {

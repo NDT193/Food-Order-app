@@ -44,11 +44,15 @@ public class FavListAdapter extends RecyclerView.Adapter<FavListAdapter.Viewhold
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
 
-        holder.checkbox.setOnClickListener(v -> {
-            int oldPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(oldPosition);
-            notifyItemChanged(selectedPosition);
+        holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                int oldPosition = selectedPosition;
+                selectedPosition = holder.getAdapterPosition();
+                notifyItemChanged(oldPosition);
+                notifyItemChanged(selectedPosition);
+            } else if (selectedPosition == holder.getAdapterPosition()) {
+                selectedPosition = -1;
+            }
         });
     }
 
