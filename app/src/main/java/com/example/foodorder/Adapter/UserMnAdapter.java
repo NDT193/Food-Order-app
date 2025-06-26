@@ -42,10 +42,6 @@ public class UserMnAdapter extends RecyclerView.Adapter<UserMnAdapter.Viewholer>
     @Override
     public void onBindViewHolder(@NonNull UserMnAdapter.Viewholer holder, int position) {
 
-//        holder.nameTxt.setText(list.get(position).getName());
-//        holder.emailTxt.setText(list.get(position).getEmail());
-//        holder.checkbox.setChecked(position == selectedPosition);
-
         try {
             if (position >= 0 && position < list.size()) {
                 Account account = list.get(position);

@@ -13,8 +13,11 @@ import com.example.foodorder.Helper1.ManagmentCart;
 import com.example.foodorder.R;
 import com.example.foodorder.databinding.ActivityDetailBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DetailActivity extends BaseActivity {
     ActivityDetailBinding binding;
@@ -33,6 +36,7 @@ public class DetailActivity extends BaseActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.black));
 
         getIntentExtra();
+        listenForStarUpdates();
         addToFavList();
         setVariable();
 
@@ -110,11 +114,27 @@ public class DetailActivity extends BaseActivity {
             intent.putExtra("FoodId", foodId);
             startActivity(intent);
         });
-
-
     }
 
     private void getIntentExtra() {
         object = (Foods) getIntent().getSerializableExtra("object");
+    }
+
+    private void listenForStarUpdates() {
+        String foodId = String.valueOf(object.getId());
+        database.getReference("Foods").child(foodId).child("Star")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Double star = snapshot.getValue(Double.class);
+                        if (star != null) {
+                            object.setStar(star);
+                            binding.rateDetailTxt.setText(star + " Rating");
+                            binding.ratingBar.setRating(star.floatValue());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { }
+                });
     }
 }

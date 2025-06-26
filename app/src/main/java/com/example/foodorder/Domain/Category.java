@@ -2,11 +2,14 @@ package com.example.foodorder.Domain;
 
 public class Category {
     private int Id;
-    private  String ImagePath;
+    private int IdSup;
+    private String ImagePath;
     private String Name;
 
     public Category() {
     }
+
+
 
     public int getId() {
         return Id;
@@ -14,6 +17,14 @@ public class Category {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public int getIdSup() {
+        return IdSup;
+    }
+
+    public void setIdSup(int idSup) {
+        IdSup = idSup;
     }
 
     public String getImagePath() {

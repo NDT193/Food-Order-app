@@ -292,7 +292,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progressBarCategory"
@@ -313,8 +313,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/recycler_view_item"
-                    tools:itemCount="9" />
+                    tools:itemCount="9"
+                    tools:listitem="@layout/recycler_view_item" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

@@ -37,6 +37,13 @@ public class AdminMainActivity extends BaseActivity {
             Intent intent = new Intent(AdminMainActivity.this, SupplierActivity.class);
             startActivity(intent);
         });
+
+        binding.cateManagerImg.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminMainActivity.this, CategoryActivity.class);
+            startActivity(intent);
+        });
+
+
     }
 }
 

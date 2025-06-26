@@ -63,7 +63,7 @@ public class SupplierActivity extends BaseActivity {
         }
 
         final EditText input = new EditText(this);
-        input.setText(selectedSupplier.getName());
+        input.setText(selectedSupplier.getSupName());
 
         new AlertDialog.Builder(this)
                 .setTitle("Update Supplier")
@@ -76,7 +76,7 @@ public class SupplierActivity extends BaseActivity {
                     }
                     DatabaseReference supRef = database.getReference("Supplier")
                             .child(String.valueOf(selectedSupplier.getIdSup()))
-                            .child("name");
+                            .child("SupName");
                     supRef.setValue(newName)
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(this, "Supplier updated", Toast.LENGTH_SHORT).show();
@@ -91,21 +91,30 @@ public class SupplierActivity extends BaseActivity {
     }
 
     private void deleteSupplier() {
-        Supplier selectedSupplier = supAdap.getSelectedSupplier();
-        if (selectedSupplier == null) {
-            Toast.makeText(this, "Please select a supplier to delete", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        int supplierId = selectedSupplier.getIdSup();
-        DatabaseReference supRef = database.getReference("Supplier").child(String.valueOf(supplierId));
-        supRef.removeValue()
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Supplier deleted", Toast.LENGTH_SHORT).show();
-                    initList();
+        new AlertDialog.Builder(SupplierActivity.this)
+                .setTitle("Thông báo")
+                .setMessage("Bạn có chắc muốn xoá Supplier này không?")
+                .setPositiveButton("Có", (dialog, which) -> {
+                    Supplier selectedSupplier = supAdap.getSelectedSupplier();
+                    if (selectedSupplier == null) {
+                        Toast.makeText(this, "Please select a supplier to delete", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    int supplierId = selectedSupplier.getIdSup();
+                    DatabaseReference supRef = database.getReference("Supplier").child(String.valueOf(supplierId));
+                    supRef.removeValue()
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(this, "Supplier deleted", Toast.LENGTH_SHORT).show();
+                                initList();
+                            })
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this, "Delete failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                            );
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Delete failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
+                .setNegativeButton("Không", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
 
     }
 

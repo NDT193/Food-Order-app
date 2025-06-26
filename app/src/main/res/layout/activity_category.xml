@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminAct.CategoryActivity">
+
+    <ImageView
+        android:id="@+id/cateBackBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cateList"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cateBackBtn" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="156dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/textStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:enabled="false"
+            android:text="Nhập thông tin danh mục:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/cateNameTxt"
+            android:layout_width="374dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Nhập tên danh mục"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <Spinner
+            android:id="@+id/supSpinner"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/cateNameTxt" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cateAddNew"
+            style="@android:style/Widget.Button"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/red_button_background"
+            android:text="Lưu thông tin"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/cateNameTxt"
+            app:layout_constraintTop_toBottomOf="@+id/supSpinner" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cateUpdate"
+            style="@android:style/Widget.Button"
+            android:layout_width="120dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/red_button_background"
+            android:text="Sửa thông tin"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cateAddNew"
+            app:layout_constraintTop_toTopOf="@+id/cateAddNew" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cateDeleted"
+            style="@android:style/Widget.Button"
+            android:layout_width="120dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/red_button_background"
+            android:text="Xoá thông tin"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cateUpdate"
+            app:layout_constraintTop_toTopOf="@+id/cateUpdate" />
+
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/textStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:text="Chọn nhà cung cấp:"
+            app:layout_constraintStart_toStartOf="@+id/cateNameTxt"
+            app:layout_constraintTop_toBottomOf="@+id/cateNameTxt" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

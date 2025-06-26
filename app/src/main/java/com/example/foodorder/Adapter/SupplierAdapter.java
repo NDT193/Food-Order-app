@@ -6,13 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodorder.Domain.Supplier;
 import com.example.foodorder.R;
-
 import java.util.ArrayList;
 
 public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Viewholder> {
@@ -35,7 +32,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Viewho
 
     @Override
     public void onBindViewHolder(@NonNull SupplierAdapter.Viewholder holder, int position) {
-        holder.supplierName.setText(list.get(position).getName());
+        holder.supplierName.setText(list.get(position).getSupName());
 
         holder.checkBox.setOnCheckedChangeListener(null);
 

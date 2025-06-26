@@ -2,30 +2,30 @@ package com.example.foodorder.Domain;
 
 public class Supplier {
 
-    private  int IdSup;
-    private String Name;
+    private  int idSup;
+    private String supName;
 
     public Supplier() {
     }
 
-    public Supplier(int idSup, String name) {
-        IdSup = idSup;
-        Name = name;
+    public Supplier(int idSup, String supName) {
+        this.idSup = idSup;
+        this.supName = supName;
     }
 
     public int getIdSup() {
-        return IdSup;
+        return idSup;
     }
 
     public void setIdSup(int idSup) {
-        IdSup = idSup;
+        this.idSup = idSup;
     }
 
-    public String getName() {
-        return Name;
+    public String getSupName() {
+        return supName;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setSupName(String supName) {
+        this.supName = supName;
     }
 }
