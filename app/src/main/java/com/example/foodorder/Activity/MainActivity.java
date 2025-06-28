@@ -2,6 +2,7 @@ package com.example.foodorder.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -22,18 +23,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         initName();
         initTime();
@@ -51,7 +58,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initSp() {
+        if (mAuth.getCurrentUser() == null) {
+            // Redirect to login or show error
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
         String email = mAuth.getCurrentUser().getEmail();
+        Log.i("TAG", "Email: " + email);
         String emailKey = email.replace(".", ",");
         DatabaseReference userRef = database.getReference("Account").child(emailKey);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,6 +102,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initName() {
+        if (mAuth.getCurrentUser() == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
         String email = mAuth.getCurrentUser().getEmail();
         String emailKey = email.replace(".", ",");
         database.getReference("Account").child(emailKey).child("Name")
@@ -238,6 +257,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    //Logout user when the activity stops
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
 }
 
 

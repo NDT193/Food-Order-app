@@ -36,9 +36,20 @@ public class SignupActivity extends BaseActivity {
             String emailKey = email.replace(".", ",");
 
 
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(SignupActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!email.endsWith("@gmail.com")) {
+                Toast.makeText(SignupActivity.this, "Email must be a @gmail.com address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (password.length() < 6) {
                 Toast.makeText(SignupActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
             }
+
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignupActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
@@ -58,7 +69,7 @@ public class SignupActivity extends BaseActivity {
                         Toast.makeText(SignupActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.i(TAG, "failure " + exception);
-                        Toast.makeText(SignupActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SignupActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -60,7 +60,7 @@
         android:background="@drawable/edittext_background"
         android:ems="10"
         android:hint="Nhập giá tiền"
-        android:inputType="text"
+        android:inputType="number"
         android:textColorHint="@color/blue_gray"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/foodItemDes"

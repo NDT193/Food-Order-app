@@ -18,24 +18,16 @@ public class IntroActivity extends BaseActivity {
     }
 
     private void setVariable() {
-        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mAuth.getCurrentUser()!=null)
-                {
-                    startActivity(new Intent(IntroActivity.this, MainActivity.class));
-                }else {
-                    startActivity(new Intent(IntroActivity.this, LoginActivity.class));
-                }
+        binding.loginBtn.setOnClickListener(v -> {
+            if(mAuth.getCurrentUser()!=null)
+            {
+                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            }else {
+                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
             }
         });
 
 
-        binding.signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(IntroActivity.this, SignupActivity.class));
-            }
-        });
+        binding.signupBtn.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
     }
 }
