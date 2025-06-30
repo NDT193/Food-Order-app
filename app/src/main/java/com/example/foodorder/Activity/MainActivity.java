@@ -257,12 +257,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    //Logout user when the activity stops
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FirebaseAuth.getInstance().signOut();
-    }
 }
 
 

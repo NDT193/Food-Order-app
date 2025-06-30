@@ -1,5 +1,6 @@
 package com.example.foodorder.AdminAct;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -72,23 +73,36 @@ public class UserMnActivity extends BaseActivity {
     }
 
     public void DeletedUser() {
-        if (UserMnAdapter != null) {
-            Account selectedAccount = UserMnAdapter.getSelectedAccount();
-            if (selectedAccount != null && selectedAccount.getEmail() != null) {
-                String key = selectedAccount.getEmail().replace(".", ",");
-                DatabaseReference userRef = database.getReference("Account").child(key);
-                userRef.removeValue().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Xoá người dùng thành công", Toast.LENGTH_SHORT).show();
-                        initSp();
-                    } else {
-                        Toast.makeText(this, "Xoá người dùng Thất bại", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this)
+                .setTitle("Có muốn xoá người dùng này không?")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    if (UserMnAdapter != null) {
+                        Account selectedAccount = UserMnAdapter.getSelectedAccount();
+                        if (selectedAccount != null && selectedAccount.getEmail() != null) {
+
+                            if (selectedAccount.isAdmin()) {
+                                Toast.makeText(this, "Không thể xoá tài khoản admin", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            String key = selectedAccount.getEmail().replace(".", ",");
+                            DatabaseReference userRef = database.getReference("Account").child(key);
+
+                            userRef.removeValue().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(this, "Xoá người dùng thành công", Toast.LENGTH_SHORT).show();
+                                    initSp();
+                                } else {
+                                    Toast.makeText(this, "Xoá người dùng Thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(this, "Chọn người dùng cần xoá", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                });
-            } else {
-                Toast.makeText(this, "Chọn người dùng cần xoá", Toast.LENGTH_SHORT).show();
-            }
-        }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void initSp() {

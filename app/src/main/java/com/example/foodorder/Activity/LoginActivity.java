@@ -82,49 +82,41 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setVariable() {
-        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = binding.userEdit.getText().toString();
-                String password = binding.passEdit.getText().toString();
-                if (email.isEmpty() || password.isEmpty()) {
-                    binding.userEdit.setError("Please enter your email");
-                    binding.passEdit.setError("Please enter your password");
-                } else {
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
-                        if (task.isSuccessful()) {
-                            String useremail = mAuth.getCurrentUser().getEmail();
-                            String emailKey = useremail.replace(".", ",");
+        binding.loginBtn.setOnClickListener(v -> {
+            String email = binding.userEdit.getText().toString();
+            String password = binding.passEdit.getText().toString();
+            if (email.isEmpty() || password.isEmpty()) {
+                binding.userEdit.setError("Please enter your email");
+                binding.passEdit.setError("Please enter your password");
+            } else {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        String useremail = mAuth.getCurrentUser().getEmail();
+                        String emailKey = useremail.replace(".", ",");
 
-                            DatabaseReference userRef = database.getReference("Account").child(emailKey);
-                            userRef.child("IsAdmin").get().addOnCompleteListener(isAdminTask -> {
-                                if (isAdminTask.isSuccessful() && isAdminTask.getResult() != null) {
-                                    Boolean isAdmin = isAdminTask.getResult().getValue(Boolean.class);
-                                    if (Boolean.TRUE.equals(isAdmin)) {
-                                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                                        finish();
-                                    } else {
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
-                                    }
+                        DatabaseReference userRef = database.getReference("Account").child(emailKey);
+                        userRef.child("IsAdmin").get().addOnCompleteListener(isAdminTask -> {
+                            if (isAdminTask.isSuccessful() && isAdminTask.getResult() != null) {
+                                Boolean isAdmin = isAdminTask.getResult().getValue(Boolean.class);
+                                if (Boolean.TRUE.equals(isAdmin)) {
+                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                    finish();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Authentication For Admin failed", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
                                 }
-                            });
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Authentication For Admin failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
-        binding.Signuptxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-            }
-        });
+        binding.Signuptxt.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
     }
 }
 

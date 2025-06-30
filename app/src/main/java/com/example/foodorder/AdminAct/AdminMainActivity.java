@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.foodorder.Activity.BaseActivity;
+import com.example.foodorder.Activity.LoginActivity;
+import com.example.foodorder.Activity.MainActivity;
 import com.example.foodorder.databinding.ActivityAdminMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminMainActivity extends BaseActivity {
     ActivityAdminMainBinding binding;
@@ -31,8 +34,10 @@ public class AdminMainActivity extends BaseActivity {
         });
 
         binding.orderManagerImg.setOnClickListener(v -> {
-
+            Intent intent = new Intent(AdminMainActivity.this, OrderMnActivity.class);
+            startActivity(intent);
         });
+
         binding.supplierManagerImg.setOnClickListener(v -> {
             Intent intent = new Intent(AdminMainActivity.this, SupplierActivity.class);
             startActivity(intent);
@@ -41,6 +46,11 @@ public class AdminMainActivity extends BaseActivity {
         binding.cateManagerImg.setOnClickListener(v -> {
             Intent intent = new Intent(AdminMainActivity.this, CategoryActivity.class);
             startActivity(intent);
+        });
+
+        binding.imageView3.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(AdminMainActivity.this, LoginActivity.class));
         });
 
 

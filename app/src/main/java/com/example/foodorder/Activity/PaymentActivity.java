@@ -2,11 +2,11 @@ package com.example.foodorder.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.foodorder.Adapter.PaymentAdapter;
 import com.example.foodorder.Domain.Foods;
 import com.example.foodorder.Env.Env;
@@ -19,7 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class PaymentActivity extends BaseActivity {
     ActivityPaymentBinding binding;
@@ -28,6 +31,7 @@ public class PaymentActivity extends BaseActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private int totalAmount;
+    private String currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,7 @@ public class PaymentActivity extends BaseActivity {
             totalAmount = 0;
         }
 
-        // Lấy số lượng đơn hàng hiện tại để tạo node con là số nguyên tăng dần
+        // Lưu trữ foodBill vào Firebase
         DatabaseReference foodBillRef = database.getReference("FoodBill");
         foodBillRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,9 +88,32 @@ public class PaymentActivity extends BaseActivity {
                     foodBillRef.child(orderId).child(food.getTitle()).setValue(bill);
                 }
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
+
+
+        // Lưu thông tin GeneralBill vào Firebase
+        DatabaseReference genBillRef = database.getReference("GeneralBill");
+        genBillRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long genIndex = snapshot.getChildrenCount() + 1; // node con là số nguyên tăng dần
+                String genId = String.valueOf(genIndex);
+                java.util.HashMap<String, Object> generalBill = new java.util.HashMap<>();
+                generalBill.put("Date", currentDate);
+                generalBill.put("Price", totalAmount);
+                generalBill.put("Uid", uid);
+                genBillRef.child(genId).setValue(generalBill);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
     }
 
     private void getCurrentUserInfo() {
@@ -130,6 +157,13 @@ public class PaymentActivity extends BaseActivity {
         binding.paymentList.setLayoutManager(linearLayoutManager);
         adapter = new PaymentAdapter(paymentList);
         binding.paymentList.setAdapter(adapter);
+
+        // Lấy ngày hiện tại
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        currentDate = sdf.format(new Date());
+        binding.dateOrderTxt.setText(currentDate);
     }
+
+
 }
 

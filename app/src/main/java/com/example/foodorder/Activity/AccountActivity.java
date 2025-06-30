@@ -3,6 +3,8 @@ package com.example.foodorder.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import com.example.foodorder.databinding.ActivityAccountBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,14 +60,13 @@ public class AccountActivity extends BaseActivity {
                     locationRef.child(String.valueOf(nextIndex)).setValue(location)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                // Sau khi lưu xong, cập nhật lại spinner
+                                Toast.makeText(AccountActivity.this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
                                 initSp();
                             }
                         });
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Xử lý lỗi nếu cần
                 }
             });
         });
