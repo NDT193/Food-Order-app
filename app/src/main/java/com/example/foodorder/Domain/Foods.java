@@ -16,6 +16,8 @@ public class Foods implements Serializable {
     private int TimeValue;
     private String Title;
     private int numberInCart;
+    private int imageId;
+    private String imageUrl;
 
     @Override
     public String toString() {
@@ -23,6 +25,22 @@ public class Foods implements Serializable {
     }
 
     public Foods() {
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getCategoryId() {

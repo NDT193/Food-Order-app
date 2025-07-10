@@ -28,6 +28,11 @@ public class AdminMainActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        binding.reportMngrImg.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminMainActivity.this, ReportActivity.class);
+            startActivity(intent);
+        });
+
         binding.foodManagerImg.setOnClickListener(v -> {
             Intent intent = new Intent(AdminMainActivity.this, FoodActivity.class);
             startActivity(intent);

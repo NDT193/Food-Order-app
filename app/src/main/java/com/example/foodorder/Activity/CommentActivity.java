@@ -46,6 +46,7 @@ public class CommentActivity extends BaseActivity {
         binding.comPushBtn.setOnClickListener(v -> addNewComment());
 
         binding.comDeleteBtn.setOnClickListener(v -> deleteComment());
+
     }
 
     private void addNewComment() {
@@ -147,6 +148,7 @@ public class CommentActivity extends BaseActivity {
                             for (DataSnapshot commentSnap : userSnapshot.getChildren()) {
                                 Comment comment = commentSnap.getValue(Comment.class);
                                 if (comment != null) {
+                                    comment.setKey(commentSnap.getKey());
                                     commentList.add(comment);
                                     commentAdapter.setCommentKey(pos[0], commentSnap.getKey());
                                     pos[0]++;

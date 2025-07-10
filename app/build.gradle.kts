@@ -66,4 +66,8 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     //MPAndroidChart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    implementation ("gun0912.ted:tedbottompicker:2.0.1")
+    //TedPermission
+    implementation("io.github.ParkSangGwon:tedpermission-normal:3.4.2")
 }

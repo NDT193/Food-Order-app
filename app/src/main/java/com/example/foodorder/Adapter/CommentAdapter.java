@@ -24,6 +24,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.Viewhold
     private Set<String> selectedKeys = new HashSet<>();
     Context context;
 
+
     public CommentAdapter(ArrayList<Comment> list, String currentUserId) {
         this.list = list;
         this.currentUserId = currentUserId;
@@ -48,7 +49,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.Viewhold
         Comment comment = list.get(position);
         if (comment.getUid() != null && comment.getUid().equals(currentUserId)) {
             holder.checkBox.setVisibility(View.VISIBLE);
-            String key = commentKeyMap.get(position);
+            String key = comment.getKey();
             holder.checkBox.setChecked(selectedKeys.contains(key));
             holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (key != null) {
@@ -63,24 +64,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.Viewhold
             holder.checkBox.setVisibility(View.GONE);
             holder.checkBox.setOnCheckedChangeListener(null);
         }
-//        if (comment.getUid() != null && comment.getUid().equals(currentUserId)) {
-//            holder.checkBox.setVisibility(View.VISIBLE);
-//        } else {
-//            holder.checkBox.setVisibility(View.GONE);
-//        }
-//
-//        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            if (isChecked) {
-//                int oldPosition = selectedPosition;
-//                selectedPosition = holder.getAdapterPosition();
-//                notifyItemChanged(oldPosition);
-//                notifyItemChanged(selectedPosition);
-//            } else if (selectedPosition == holder.getAdapterPosition()) {
-//                selectedPosition = -1;
-//            }
-//        });
+
 
     }
+
 
     @Override
     public int getItemCount() {
